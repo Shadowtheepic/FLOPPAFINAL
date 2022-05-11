@@ -36,16 +36,15 @@ class Enemy:
        
         
     def draw (self):
-        pygame.draw.ellipse(screen, (100,100,0), (self.xpos,self.ypos,self.width,self.height))
+        pygame.draw.ellipse(screen, (255,255,255), (self.xpos,self.ypos,self.width,self.height))
         
             
     def turn(self):
         self.xpos+=self.xmove
         if self.xpos  < 0:
             self.xmove*=-1
-        if self.xpos + self.width > 800:
+        if self.xpos + self.width > 600:
             self.xmove*=-1
-        
         
 class Platform:
     def __init__(self, xpos, ypos):
@@ -60,22 +59,21 @@ class Platform:
 
             
     def collide (self, x ,y):
-          if x+40>self.xpos and x<self.xpos+40 and y+50 > self.ypos and y< self.ypos + 50:
+          if x+40>self.xpos and x<self.xpos+100 and y+50 > self.ypos and y< self.ypos + 20:
               return True
           else:
             return False
     def goofy (self):
         return True
 
-
-
+loop = 5
 ppp = Unit()
+e1 = Enemy(300, 550)
 
 platfur = list()
 
-for i in range(6):
+for i in range(loop):
     platfur.append(Platform(i * 100, 480))
-
 
 blam = False
 
@@ -144,14 +142,16 @@ while not doExit:
     screen.fill((0, 0, 0))
     
     
-    for i in range(6):
+    for i in range(loop):
         platfur[i].draw()
         if platfur[i].collide(px, py) == True:
             isOnGround = True
             py = platfur[i].ypos - pheight 
             vy = 0
 
-
+    e1.draw()
+    e1.turn()
+    
         
     pygame.draw.rect(screen, color, (px,py, pwidth, pheight))
     if blam is True:
