@@ -63,8 +63,6 @@ class Platform:
               return True
           else:
             return False
-    def goofy (self):
-        return True
 
 loop = 5
 ppp = Unit()
@@ -84,6 +82,7 @@ vy = 0
 pwidth = 40
 pheight = 50
 isOnGround = True
+room = 1
       
 doExit = False
 
@@ -116,6 +115,8 @@ while not doExit:
       px = 0
     if px+pwidth > 600:
       px = 600 - pwidth
+      #room = 2
+      #px = 100
       
     if py < 0:
       py = 0
@@ -141,13 +142,20 @@ while not doExit:
     #render------------------------
     screen.fill((0, 0, 0))
     
-    
-    for i in range(loop):
-        platfur[i].draw()
-        if platfur[i].collide(px, py) == True:
-            isOnGround = True
-            py = platfur[i].ypos - pheight 
-            vy = 0
+    if room == 1:
+        for i in range(loop):
+            platfur[i].draw()
+            if platfur[i].collide(px, py) == True:
+                isOnGround = True
+                py = platfur[i].ypos - pheight 
+                vy = 0
+    if room == 2:
+        for i in range(3):
+            platfur[i].draw()
+            if platfur[i].collide(px, py) == True:
+                isOnGround = True
+                py = platfur[i].ypos - pheight 
+                vy = 0
 
     e1.draw()
     e1.turn()
