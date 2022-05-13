@@ -2,8 +2,10 @@ import pygame
 import random
 
 pygame.init()
-pygame.display.set_caption("FLOPPA FINAL") 
-screen = pygame.display.set_mode((600,600))
+pygame.display.set_caption("FLOPPA FINAL")
+screenwidth = 600
+screenheight = 600
+screen = pygame.display.set_mode((screenwidth, screenheight))
 clock = pygame.time.Clock()
 
 col1 = random.randrange(0,255)
@@ -67,8 +69,14 @@ class Platform:
 loop = 6
 ppp = Unit()
 elist = list()
-
 platfur = list()
+
+music = pygame.mixer.music.load('ryd_steve_lacy.mp3')
+pygame.mixer.music.play(-1)
+
+darla = pygame.image.load('darla.png')
+darla.set_colorkey((255, 255, 255))
+cheeb = pygame.image.load('cheeb.jfif')
 
 for i in range(loop):
     platfur.append(Platform(i * 100, 600 - i*100))
@@ -156,6 +164,10 @@ while not doExit:
     #render------------------------
     screen.fill((0, 0, 0))
     
+    
+    screen.blit(pygame.transform.scale(cheeb, (screenwidth, screenheight)), (0, 0))
+    
+    
     if room == 1:
         for i in range(loop):
             platfur[i].draw()
@@ -187,7 +199,7 @@ while not doExit:
 
     
         
-    pygame.draw.rect(screen, color, (px,py, pwidth, pheight))
+    screen.blit(darla, (px,py, pwidth, pheight))
     if blam is True:
             shooty = py
             for i in range (600):
